@@ -8,6 +8,10 @@ export const diaryService = {
 	getNonSensitive: (): NonSensitiveDiaryEntry[] => {
 		return diaries.map(({ comment: _comment, ...diaryEntry }) => diaryEntry);
 	},
+	getById: (id: DiaryEntry["id"]): DiaryEntry | null => {
+		const entry = diaries.find((diary) => diary.id === id);
+		return entry ?? null;
+	},
 	addOne: () => {
 		// TODO: implement
 		return null;
