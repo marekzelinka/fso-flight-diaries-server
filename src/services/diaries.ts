@@ -1,4 +1,4 @@
-import { diaries } from "../data.ts";
+import { diaries } from "../data/diaries.ts";
 import type {
 	DiaryEntry,
 	NewDiaryEntry,
@@ -17,14 +17,14 @@ export const diaryService = {
 
 		return entry ?? null;
 	},
-	addOne: (entryObject: NewDiaryEntry): DiaryEntry => {
-		const newEntry: DiaryEntry = {
+	addOne: (newEntry: NewDiaryEntry): DiaryEntry => {
+		const entry: DiaryEntry = {
 			id: Math.max(...diaries.map((diary) => diary.id)) + 1,
-			...entryObject,
+			...newEntry,
 		};
 
-		diaries.push(newEntry);
+		diaries.push(entry);
 
-		return newEntry;
+		return entry;
 	},
 };

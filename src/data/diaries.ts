@@ -1,6 +1,7 @@
-import type { DiaryEntry } from "./types.ts";
+import type { DiaryEntry } from "../types.js";
+import { toNewDiaryEntry } from "../utils.ts";
 
-export const diaries: DiaryEntry[] = [
+export const diaries = [
 	{
 		id: 1,
 		date: "2017-01-01",
@@ -29,4 +30,9 @@ export const diaries: DiaryEntry[] = [
 		visibility: "good",
 		comment: "I almost failed the landing but I survived",
 	},
-];
+].map((object) => {
+	const newEntry = toNewDiaryEntry(object) as DiaryEntry;
+	newEntry.id = object.id;
+
+	return newEntry;
+});
