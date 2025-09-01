@@ -1,5 +1,9 @@
 import { diaries } from "../data.ts";
-import type { DiaryEntry, NonSensitiveDiaryEntry } from "../types.ts";
+import type {
+	DiaryEntry,
+	NewDiaryEntry,
+	NonSensitiveDiaryEntry,
+} from "../types.ts";
 
 export const diaryService = {
 	getAll: (): DiaryEntry[] => {
@@ -10,10 +14,17 @@ export const diaryService = {
 	},
 	getById: (id: DiaryEntry["id"]): DiaryEntry | null => {
 		const entry = diaries.find((diary) => diary.id === id);
+
 		return entry ?? null;
 	},
-	addOne: () => {
-		// TODO: implement
-		return null;
+	addOne: (entryObject: NewDiaryEntry): DiaryEntry => {
+		const newEntry: DiaryEntry = {
+			id: Math.max(...diaries.map((diary) => diary.id)) + 1,
+			...entryObject,
+		};
+
+		diaries.push(newEntry);
+
+		return newEntry;
 	},
 };
