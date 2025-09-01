@@ -1,9 +1,10 @@
-import express from "express";
+import express, { type Response } from "express";
 import { diaryService } from "../services/diaries.ts";
+import type { NonSensitiveDiaryEntry } from "../types.ts";
 
 export const diaryRouter = express.Router();
 
-diaryRouter.get("/", (_req, res) => {
+diaryRouter.get("/", (_req, res: Response<NonSensitiveDiaryEntry[]>) => {
 	res.send(diaryService.getNonSensitive());
 });
 

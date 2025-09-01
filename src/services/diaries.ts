@@ -1,11 +1,11 @@
 import { diaries } from "../data.ts";
-import type { DiaryEntry } from "../types.ts";
+import type { DiaryEntry, NonSensitiveDiaryEntry } from "../types.ts";
 
 export const diaryService = {
 	getAll: (): DiaryEntry[] => {
 		return diaries;
 	},
-	getNonSensitive: (): DiaryEntry[] => {
+	getNonSensitive: (): NonSensitiveDiaryEntry[] => {
 		return diaries.map(({ comment: _comment, ...diaryEntry }) => diaryEntry);
 	},
 	addOne: () => {
