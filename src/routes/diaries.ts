@@ -1,12 +1,12 @@
 import express, { type Response } from "express";
+import { parseDiary } from "../lib/diary.ts";
+import type { DiaryEntry, NonSensitiveDiaryEntry } from "../lib/types.ts";
 import { diaryService } from "../services/diaries.ts";
-import type { DiaryEntry, NonSensitiveDiaryEntry } from "../types.ts";
-import { toNewDiaryEntry } from "../utils.ts";
 
 export const diaryRouter = express.Router();
 
 diaryRouter.get("/", (_req, res: Response<NonSensitiveDiaryEntry[]>) => {
-	res.send(diaryService.getNonSensitive());
+	res.json(diaryService.getNonSensitive());
 });
 
 diaryRouter.get("/:id", (req, res: Response<DiaryEntry | null>) => {
@@ -14,6 +14,7 @@ diaryRouter.get("/:id", (req, res: Response<DiaryEntry | null>) => {
 
 	if (!entry) {
 		res.status(404).end();
+
 		return;
 	}
 
@@ -22,11 +23,10 @@ diaryRouter.get("/:id", (req, res: Response<DiaryEntry | null>) => {
 
 diaryRouter.post("/", (req, res: Response<DiaryEntry | { error: string }>) => {
 	try {
-		const newEntry = toNewDiaryEntry(req.body);
+		const parsedEntry = parseDiary(req.body);
+		const newEntry = diaryService.addOne(parsedEntry);
 
-		const entry = diaryService.addOne(newEntry);
-
-		res.send(entry);
+		res.json(newEntry);
 	} catch (error) {
 		let errorMessage = "Something went wrong.";
 

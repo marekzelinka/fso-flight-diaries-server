@@ -3,7 +3,7 @@ import type {
 	DiaryEntry,
 	NewDiaryEntry,
 	NonSensitiveDiaryEntry,
-} from "../types.ts";
+} from "../lib/types.ts";
 
 export const diaryService = {
 	getAll: (): DiaryEntry[] => {
@@ -17,14 +17,13 @@ export const diaryService = {
 
 		return entry ?? null;
 	},
-	addOne: (newEntry: NewDiaryEntry): DiaryEntry => {
-		const entry: DiaryEntry = {
+	addOne: (entryObject: NewDiaryEntry): DiaryEntry => {
+		const newEntry: DiaryEntry = {
 			id: Math.max(...diaries.map((diary) => diary.id)) + 1,
-			...newEntry,
+			...entryObject,
 		};
+		diaries.push(newEntry);
 
-		diaries.push(entry);
-
-		return entry;
+		return newEntry;
 	},
 };

@@ -1,6 +1,6 @@
 import { type NewDiaryEntry, Visibility, Weather } from "./types.ts";
 
-export function toNewDiaryEntry(arg: unknown): NewDiaryEntry {
+export function parseDiary(arg: unknown): NewDiaryEntry {
 	if (!arg || typeof arg !== "object") {
 		throw new Error("Incorrect or missing data");
 	}

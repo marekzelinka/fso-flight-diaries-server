@@ -1,5 +1,5 @@
-import type { DiaryEntry } from "../types.js";
-import { toNewDiaryEntry } from "../utils.ts";
+import { parseDiary } from "../lib/diary.ts";
+import type { DiaryEntry } from "../lib/types.ts";
 
 export const diaries = [
 	{
@@ -31,7 +31,7 @@ export const diaries = [
 		comment: "I almost failed the landing but I survived",
 	},
 ].map((object) => {
-	const newEntry = toNewDiaryEntry(object) as DiaryEntry;
+	const newEntry = parseDiary(object) as DiaryEntry;
 	newEntry.id = object.id;
 
 	return newEntry;
