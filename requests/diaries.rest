@@ -4,7 +4,7 @@ GET http://localhost:3000/api/diaries
 ### Get a diary by id
 GET http://localhost:3000/api/diaries/6
 
-### Create diary
+### Create diary with valid data
 POST http://localhost:3000/api/diaries
 Content-Type: application/json
 
@@ -13,4 +13,14 @@ Content-Type: application/json
   "weather": "rainy",
   "visibility": "good",
   "comment": "this should work"
+}
+
+### Create diary with invalid date
+POST http://localhost:3000/api/diaries
+Content-Type: application/json
+
+{
+  "date": "2017-01-06",
+  "weather": "rainy",
+  "visibility": "splendid"
 }

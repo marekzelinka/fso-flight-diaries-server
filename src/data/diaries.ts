@@ -1,4 +1,4 @@
-import { parseDiary } from "../lib/diary.ts";
+import { NewEntrySchema } from "../lib/schemas/diary.ts";
 import type { DiaryEntry } from "../lib/types.ts";
 
 export const diaries = [
@@ -30,9 +30,11 @@ export const diaries = [
 		visibility: "good",
 		comment: "I almost failed the landing but I survived",
 	},
-].map((object) => {
-	const newEntry = parseDiary(object) as DiaryEntry;
-	newEntry.id = object.id;
+].map((object): DiaryEntry => {
+	const newEntry = NewEntrySchema.parse(object);
 
-	return newEntry;
+	return {
+		id: object.id,
+		...newEntry,
+	};
 });
